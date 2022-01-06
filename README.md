@@ -25,21 +25,69 @@ Cloud-init user-datas for autoinstalls.
    *partition-id:   ID that the partition will be identified by along the rest of the install.*  
    *formatted-id:   ID that the formatted partition will be identified by along the rest of the install.*  
 
+EFI  
 ```
 - device: <disk-id>
-        size: 500M
-        wipe: superblock
-        flag: boot
-        number: <partition-id>
-        preserve: false
-        grub_device: true
-        type: partition
-        id: <partition-id>
-      - fstype: fat32
-        volume: <partition-id>
-        preserve: false
-        type: format
-        id: <formatted-id>
+    size: 500M
+    wipe: superblock
+    flag: boot
+    number: <partition-id>
+    preserve: false
+    grub_device: true
+    type: partition
+    id: <partition-id>
+  - fstype: fat32
+    volume: <partition-id>
+    preserve: false
+    type: format
+    id: <formatted-id>
+```
+
+PUT THIS AT THE END OF THE STORAGE CONFIG!
+```
+- device: <formatted-id>
+        path: /boot/efi
+        type: mount
+        id: <mounted-id>
+```
+
+### Installing with BIOS (Legacy)
+
+Grub  
+```
+  - device: <disk-id>
+    size: 1M
+    flag: bios_grub
+    number: 1
+    preserve: false
+    grub_device: false
+    type: partition
+    id: <partition-id>
+```
+
+/boot  
+```  
+  - device: <disk-id>
+    size: 1G
+    wipe: superblock
+    flag: linux
+    number: 2
+    preserve: false
+    grub_device: false
+    type: partition
+    id: <partition-id-2>
+  - fstype: ext4
+    volume: <partition-id-2>
+    preserve: false
+    type: format
+    id: <formatted-id>
+```
+PUT THIS AT THE END OF THE STORAGE CONFIG!
+```
+- device: format-boot
+    path: /boot
+    type: mount
+    id: mount-boot
 ```
 
 ## Late-commands

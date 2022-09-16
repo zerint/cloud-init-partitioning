@@ -1,4 +1,5 @@
 # Cloud-init partitioning
+Docs to partitioning with cloud-init.
 
 ## Storage  
 

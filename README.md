@@ -1,5 +1,4 @@
-# cloud-init-autoinstall
-Cloud-init user-datas for autoinstalls.
+# Cloud-init partitioning
 
 ## Storage  
 
